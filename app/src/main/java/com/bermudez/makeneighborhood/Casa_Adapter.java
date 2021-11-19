@@ -20,7 +20,7 @@ public class Casa_Adapter  extends RecyclerView.Adapter<Casa_Adapter.ViewHolder>
     private View.OnClickListener listener;
 
     public Casa_Adapter(Context context) {
-        this.inflater = inflater;
+        this.inflater = LayoutInflater.from(context);
         this.context = context;
     }
 
@@ -48,13 +48,14 @@ public class Casa_Adapter  extends RecyclerView.Adapter<Casa_Adapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull Casa_Adapter.ViewHolder holder, int position) {
+        // SIEMPRE SON STRING
         String strCalle=Neightborhood.lstCasas.get(position).getsCalle();
-        int iNumero=Neightborhood.lstCasas.get(position).getiNumero();
-        double doSuperficie=Neightborhood.lstCasas.get(position).getDoSperficie();
+        String iNumero= String.valueOf(Neightborhood.lstCasas.get(position).getiNumero());
+        String doSuperficie= String.valueOf(Neightborhood.lstCasas.get(position).getDoSperficie());
 
         holder.lblNameStreet.setText(strCalle);
         holder.lblNumber.setText(iNumero);
-        holder.lblSize.setText((int) doSuperficie);
+        holder.lblSize.setText(doSuperficie);
 
     }
 

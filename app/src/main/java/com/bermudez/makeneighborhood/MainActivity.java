@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void mostrarData(){
+        listarProducto();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("Range")
-    public void listarProducto(View view){
+    public void listarProducto(){
 
         DB_SQLite db = new DB_SQLite(this);
         SQLiteDatabase conn = db.getWritableDatabase();
