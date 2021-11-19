@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeNeighborhood">
         <activity
+            android:name=".Casa_Detalle"
+            android:exported="true" />
+        <activity
             android:name=".Casa_Adapter"
             android:exported="true" />
         <activity

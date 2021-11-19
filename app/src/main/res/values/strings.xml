@@ -1,3 +1,11 @@
 <resources>
+
     <string name="app_name">MakeNeighborhood</string>
+    <string name="btnBorrar">Borrar</string>
+    <string name="btnGuardar">Guardar</string>
+    <string name="hintCalle">Calle</string>
+    <string name="hintNumero">Numero</string>
+    <string name="hintSuperficie">Superficie</string>
+    <string name="hintGestorCasas">Gestor de casas</string>
+
 </resources>

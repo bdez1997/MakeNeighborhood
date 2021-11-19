@@ -59,4 +59,15 @@ public class Casa {
     public void setDoSperficie(double doSperficie) {
         this.doSperficie = doSperficie;
     }
+
+    @Override
+    public String toString() {
+        String sResultado="";
+
+        sResultado= "Calle: "+sCalle+"\n";
+        sResultado+="Número: "+iNumero+"\n";
+        sResultado+="Superficie: "+doSperficie;
+
+        return sResultado;
+    }
 }
