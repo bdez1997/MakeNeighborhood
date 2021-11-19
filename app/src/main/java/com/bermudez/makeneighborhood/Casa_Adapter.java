@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Casa_Adapter  extends RecyclerView.Adapter<Casa_Adapter.ViewHolder> implements View.OnClickListener{
@@ -47,6 +48,13 @@ public class Casa_Adapter  extends RecyclerView.Adapter<Casa_Adapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull Casa_Adapter.ViewHolder holder, int position) {
+        String strCalle=Neightborhood.lstCasas.get(position).getsCalle();
+        int iNumero=Neightborhood.lstCasas.get(position).getiNumero();
+        double doSuperficie=Neightborhood.lstCasas.get(position).getDoSperficie();
+
+        holder.lblNameStreet.setText(strCalle);
+        holder.lblNumber.setText(iNumero);
+        holder.lblSize.setText((int) doSuperficie);
 
     }
 

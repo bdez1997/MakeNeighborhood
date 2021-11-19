@@ -4,29 +4,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
+
     FloatingActionButton floatingAddHouse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        floatingAddHouse=findViewById(R.id.floatingAddHouse);
 
+
+
+        floatingAddHouse=findViewById(R.id.floatingAddHouse);
         floatingAddHouse.setOnClickListener(e->{
             Intent i = new Intent(this,Casa_Detalle.class);
             startActivity(i);
         });
-
         mostrarData();
-
-
     }
 
 
@@ -47,7 +53,45 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+    }
 
+    public void mostrarMensaje(String mensaje){
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+    }
+
+    @SuppressLint("Range")
+    public void listarProducto(View view){
+
+        DB_SQLite db = new DB_SQLite(this);
+        SQLiteDatabase conn = db.getWritableDatabase();
+
+        String sqlTableName="VECINDARIO";
+        String[] sqlFields = {"CALLE","NUMERO","SUPERFICIE"};
+        String sqlWhere = "";
+        String sqlGroupBy="" ;
+        String sqlHaving="" ;
+        String sqlOrderBy ="CALLE ASC";
+
+
+        Cursor cursor = conn.query(sqlTableName,sqlFields,sqlWhere,null,sqlGroupBy,sqlHaving,sqlOrderBy);
+
+        if(cursor.getCount()==0){
+            mostrarMensaje("La tabla está vacía ");
+
+        }else{
+            cursor.moveToFirst();
+            do{
+
+                String dataNombreProducto = cursor.getString(cursor.getColumnIndex("CALLE"));
+                int dataCantidadProducto = cursor.getInt(cursor.getColumnIndex("NUMERO"));
+                double dataSelectedProducto = cursor.getDouble(cursor.getColumnIndex("SUPERFICIE"));
+
+                Neightborhood.lstCasas.add(new Casa(dataNombreProducto,dataCantidadProducto,dataSelectedProducto));
+
+            }while(cursor.moveToNext());
+
+        }
+        conn.close();
     }
 
 }
