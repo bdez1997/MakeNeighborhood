@@ -1,5 +1,6 @@
 <resources>
 
+    <string name="Gestor">Gestor de casas</string>
     <string name="app_name">MakeNeighborhood</string>
     <string name="btnBorrar">Borrar</string>
     <string name="btnGuardar">Guardar</string>

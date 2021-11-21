@@ -17,79 +17,89 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
+    public static boolean boTypeSelection = false;
 
     FloatingActionButton floatingAddHouse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
+        floatingAddHouse = findViewById(R.id.floatingAddHouse);
 
-
-        floatingAddHouse=findViewById(R.id.floatingAddHouse);
-        floatingAddHouse.setOnClickListener(e->{
-            Intent i = new Intent(this,Casa_Detalle.class);
+        floatingAddHouse.setOnClickListener(e -> {
+            boTypeSelection=false;
+            Intent i = new Intent(this, Casa_Detalle.class);
             startActivity(i);
         });
         mostrarData();
+
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        Neightborhood.lstCasas.clear();
+        mostrarData();
+
     }
 
-
-    private void mostrarData(){
+    private void mostrarData() {
         listarProducto();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Casa_Adapter adaptadorAlumno = new Casa_Adapter(this);
+        Casa_Adapter casaAdapter = new Casa_Adapter(this);
 
-        recyclerView.setAdapter(adaptadorAlumno);
+        recyclerView.setAdapter(casaAdapter);
 
-        adaptadorAlumno.setOnClickListener(view ->{
+        casaAdapter.setOnClickListener(view -> {
+            boTypeSelection=true;
             Neightborhood.iCasaSelected = recyclerView.getChildAdapterPosition(view);
-            Toast.makeText(this,"Item"+Neightborhood.lstCasas.get(Neightborhood.iCasaSelected).toString(),Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this,Casa_Detalle.class);
+            Toast.makeText(this, "Item" + Neightborhood.lstCasas.get(Neightborhood.iCasaSelected).toString(), Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, Casa_Detalle.class);
             startActivity(i);
         });
 
     }
 
-    public void mostrarMensaje(String mensaje){
+    public void mostrarMensaje(String mensaje) {
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
     @SuppressLint("Range")
-    public void listarProducto(){
+    public void listarProducto() {
 
         DB_SQLite db = new DB_SQLite(this);
         SQLiteDatabase conn = db.getWritableDatabase();
 
-        String sqlTableName="VECINDARIO";
-        String[] sqlFields = {"CALLE","NUMERO","SUPERFICIE"};
+        String sqlTableName = "VECINDARIO";
+        String[] sqlFields = {"CALLE", "NUMERO", "SUPERFICIE"};
         String sqlWhere = "";
-        String sqlGroupBy="" ;
-        String sqlHaving="" ;
-        String sqlOrderBy ="CALLE ASC";
+        String sqlGroupBy = "";
+        String sqlHaving = "";
+        String sqlOrderBy = "CALLE ASC";
 
 
-        Cursor cursor = conn.query(sqlTableName,sqlFields,sqlWhere,null,sqlGroupBy,sqlHaving,sqlOrderBy);
+        Cursor cursor = conn.query(sqlTableName, sqlFields, sqlWhere, null, sqlGroupBy, sqlHaving, sqlOrderBy);
 
-        if(cursor.getCount()==0){
+        if (cursor.getCount() == 0) {
             mostrarMensaje("La tabla está vacía ");
 
-        }else{
+        } else {
             cursor.moveToFirst();
-            do{
+            do {
 
-                String dataNombreProducto = cursor.getString(cursor.getColumnIndex("CALLE"));
-                int dataCantidadProducto = cursor.getInt(cursor.getColumnIndex("NUMERO"));
-                double dataSelectedProducto = cursor.getDouble(cursor.getColumnIndex("SUPERFICIE"));
+                String dataNombreCasa = cursor.getString(cursor.getColumnIndex("CALLE"));
+                int iNumCasa = cursor.getInt(cursor.getColumnIndex("NUMERO"));
+                double doSuperficie = cursor.getDouble(cursor.getColumnIndex("SUPERFICIE"));
 
-                Neightborhood.lstCasas.add(new Casa(dataNombreProducto,dataCantidadProducto,dataSelectedProducto));
+                Neightborhood.lstCasas.add(new Casa(dataNombreCasa, iNumCasa, doSuperficie));
 
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
 
         }
         conn.close();

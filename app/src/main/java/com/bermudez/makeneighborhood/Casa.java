@@ -62,11 +62,11 @@ public class Casa {
 
     @Override
     public String toString() {
-        String sResultado="";
+        String sResultado = "";
 
-        sResultado= "Calle: "+sCalle+"\n";
-        sResultado+="Número: "+iNumero+"\n";
-        sResultado+="Superficie: "+doSperficie;
+        sResultado = "Calle: " + sCalle + "\n";
+        sResultado += "Número: " + iNumero + "\n";
+        sResultado += "Superficie: " + doSperficie;
 
         return sResultado;
     }
