@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase conn = db.getWritableDatabase();
 
         String sqlTableName = "VECINDARIO";
-        String[] sqlFields = {"CALLE", "NUMERO", "SUPERFICIE"};
+        String[] sqlFields = {"id_Vecindario","CALLE", "NUMERO", "SUPERFICIE"};
         String sqlWhere = "";
         String sqlGroupBy = "";
         String sqlHaving = "";
@@ -92,12 +92,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             cursor.moveToFirst();
             do {
-
+                Integer id_vecindario = cursor.getInt(cursor.getColumnIndex("id_Vecindario"));
                 String dataNombreCasa = cursor.getString(cursor.getColumnIndex("CALLE"));
                 int iNumCasa = cursor.getInt(cursor.getColumnIndex("NUMERO"));
                 double doSuperficie = cursor.getDouble(cursor.getColumnIndex("SUPERFICIE"));
 
-                Neightborhood.lstCasas.add(new Casa(dataNombreCasa, iNumCasa, doSuperficie));
+                Neightborhood.lstCasas.add(new Casa(id_vecindario,dataNombreCasa, iNumCasa, doSuperficie));
 
             } while (cursor.moveToNext());
 

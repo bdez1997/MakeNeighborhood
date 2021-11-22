@@ -52,7 +52,7 @@ public class Casa_Detalle extends AppCompatActivity {
 
     public void ActualizarProducto() {
 
-        String id_Vecindario = String.valueOf(Neightborhood.iCasaSelected);
+        Integer id_Vecindario = Neightborhood.lstCasas.get(Neightborhood.iCasaSelected).getiId();
         String strStreet = txtsStreet.getText().toString();
         String strNumber = txtNumber.getText().toString();
         String strSuperficie = txtSuperficie.getText().toString();
@@ -73,7 +73,7 @@ public class Casa_Detalle extends AppCompatActivity {
             String condicion = "id_Vecindario LIKE '" + id_Vecindario + "'";
             conn.update("VECINDARIO", content, condicion, null);
             conn.close();
-            mostrarMensaje("La casa " + strStreet + " " + strNumber + " " + strSuperficie +" ha sido actualizado");
+            mostrarMensaje("La casa "+ id_Vecindario+ "" + strStreet + " " + strNumber + " " + strSuperficie +" ha sido actualizado");
             limpiarCuadros();
 
         }

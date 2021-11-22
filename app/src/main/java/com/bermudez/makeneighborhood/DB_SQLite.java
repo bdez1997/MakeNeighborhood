@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 public class DB_SQLite extends SQLiteOpenHelper {
 
     private static final String DB_NAME="vecindario.db";
-    private static final int DB_VERSION=2;
+    private static final int DB_VERSION=1;
 
     private static final String SQL_CREATE_ENTRIES="CREATE TABLE VECINDARIO(id_Vecindario INTEGER PRIMARY KEY AUTOINCREMENT,CALLE TEXT,NUMERO INTEGER,SUPERFICIE REAL)";
     private static final String SQL_DELETE_ENTRIES="DROP TABLE IF EXISTS VECINDARIO";
